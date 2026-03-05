@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Snippet Viewer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              100: '#f1f5f9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .code-block {
+      transition: all 0.2s ease;
+    }
+    .copy-btn:hover {
+      background-color: #334155;
+    }
+    .copy-btn.copied {
+      color: #4ade80;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 min-h-screen p-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold text-white mb-2">Code Snippet Viewer</h1>
+      <p class="text-slate-400">View and copy code snippets with one click</p>
+    </div>
+    
+    <div class="code-block rounded-lg border border-slate-700 overflow-hidden">
+      <div class="bg-slate-800 px-4 py-3 flex justify-between items-center">
+        <div class="flex space-x-2">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        </div>
+        <button id="copyButton" class="copy-btn text-slate-400 hover:text-white px-3 py-1 rounded flex items-center text-sm">
+          <i class="far fa-copy mr-2"></i>
+          <span id="copyText">Copy</span>
+        </button>
+      </div>
+      <div class="bg-slate-900 p-6">
+        <pre class="m-0 p-0">
+          <code id="codeContent" class="text-sm font-mono text-slate-100 leading-relaxed">
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+const message: string = greet("World");
+console.log(message);
+
+// This is a sample code snippet
+// demonstrating TypeScript syntax
+          </code>
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const copyButton = document.getElementById('copyButton');
+    const copyText = document.getElementById('copyText');
+    const codeContent = document.getElementById('codeContent');
+    
+    copyButton.addEventListener('click', () => {
+      const text = codeContent.textContent;
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          // Show success state
+          copyButton.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+          copyButton.classList.add('copied');
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            copyButton.innerHTML = '<i class="far fa-copy mr-2"></i>Copy';
+            copyButton.classList.remove('copied');
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    });
+  </script>
+</body>
+</html>
