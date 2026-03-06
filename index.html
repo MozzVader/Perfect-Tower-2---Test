@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ec4899, #9333ea, #06b6d4);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      position: relative;
+    }
+
+    /* Animación del gradiente */
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Efecto de ruido */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Efecto de texto neon */
+    .neon-text {
+      text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.3),
+        0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Header */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 20;
+    }
+
+    .logo-placeholder {
+      width: 64px;
+      height: 64px;
+      background-color: #e5e7eb;
+      border: 2px dashed #9ca3af;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+    }
+
+    .logo-text {
+      color: #6b7280;
+      font-size: 0.75rem;
+    }
+
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 96px;
+      width: 208px;
+      height: calc(100% - 96px);
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      z-index: 10;
+    }
+
+    .sidebar-button {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      border-radius: 0.375rem;
+      background: transparent;
+      border: none;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 208px;
+      margin-top: 96px;
+      height: calc(100% - 96px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content-card {
+      text-align: center;
+      padding: 32px;
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      max-width: 600px;
+    }
+
+    .content-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .content-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        top: auto;
+        bottom: 0;
+        border-right: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        flex-direction: row;
+        padding: 8px;
+      }
+
+      .sidebar-button {
+        margin-bottom: 0;
+        margin-right: 8px;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+      }
+
+      .main-content {
+        margin-left: 0;
+        margin-top: 96px;
+        height: calc(100% - 160px);
+      }
+
+      .content-title {
+        font-size: 1.5rem;
+      }
+
+      .content-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-placeholder">
+      <span class="logo-text">LOGO</span>
+    </div>
+    <h1 class="header-title neon-text">Neon Dashboard</h1>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <button class="sidebar-button">Dashboard</button>
+    <button class="sidebar-button">Analytics</button>
+    <button class="sidebar-button">Settings</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-card">
+      <h2 class="content-title neon-text">Bienvenido al Dashboard</h2>
+      <p class="content-text">
+        Este es el área principal de contenido. La barra de menú está posicionada debajo del encabezado.
+      </p>
+    </div>
+  </main>
+</body>
+</html>
