@@ -251,37 +251,14 @@
     /* ─── Contenido principal ─────────────────────────────────────────────── */
     .main-content {
       grid-area: main;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto; /* scroll interno si el contenido crece */
-      padding: 24px;
+      overflow: hidden;
     }
 
-    .content-card {
-      text-align: center;
-      padding: 32px;
-      background-color: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 1rem;
-      max-width: 600px;
+    .main-content iframe {
       width: 100%;
-    }
-
-    .content-title {
-      font-size: 2.25rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 16px;
-    }
-
-    .content-text {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.125rem;
-      line-height: 1.75rem;
-      max-width: 500px;
-      margin: 0 auto;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
     /* ─── Responsive ──────────────────────────────────────────────────────── */
@@ -323,8 +300,8 @@
 
   <!-- Header: grid-area "header" -->
   <header class="header">
-    <a href="index.html" class="nav-sub-label"><img class="logo-img" src="./Assets/header-logo.png" alt="Logo"></a>
-    <h1 class="header-title neon-text">Neon Dashboard</h1>
+    <a href="index.html"><img class="logo-img" src="./Assets/header-logo.png" alt="Logo"></a>
+    <h1 class="header-title neon-text">The Perfect Tower 2 - Mozz Compendium</h1>
   </header>
 
   <!-- Sidebar: grid-area "sidebar" -->
@@ -340,13 +317,13 @@
     <div class="nav-item">
       <input class="nav-toggle" type="checkbox" id="toggle-1">
       <label class="nav-summary" for="toggle-1">
-        Dashboard
+        Blueprints
         <i class="nav-arrow">▼</i>
       </label>
       <div class="nav-sub">
         <div class="nav-sub-inner">
           <input class="nav-radio" type="radio" name="nav" id="nav-1-1">
-          <a href="Ricky.html" class="nav-sub-label">Resumen</a>
+          <a href="Ricky.html" target="content-frame" class="nav-sub-label">Resumen</a>
           <input class="nav-radio" type="radio" name="nav" id="nav-1-2">
           <label class="nav-sub-label" for="nav-1-2">Actividad reciente</label>
           <input class="nav-radio" type="radio" name="nav" id="nav-1-3">
@@ -396,13 +373,9 @@
   </aside>
 
   <!-- Main: grid-area "main" -->
+  <!-- El iframe carga el contenido de cada submenú sin recargar header ni sidebar -->
   <main class="main-content">
-    <div class="content-card">
-      <h2 class="content-title neon-text">Bienvenido al Dashboard</h2>
-      <p class="content-text">
-        Este es el área principal de contenido. La barra de menú está posicionada debajo del encabezado.
-      </p>
-    </div>
+    <iframe name="content-frame" src="welcome.html"></iframe>
   </main>
 
 </body>
